@@ -187,35 +187,41 @@ def selectStu(request):
 7.查询id从大到小排列/排序
 ```
  # 查询id从大到小排序
-    # stus = Student.objects.all().order_by('-id')
-    # return render(request, 'select_stu.html', {'stus': stus})
+ def selectStu(request):
+    stus = Student.objects.all().order_by('-id')
+    return render(request, 'select_stu.html', {'stus': stus})
 ```
 8.查询id从小到大的排序
 ```
+def selectStu(request):
     # 查询id从小到大排序
-    # stus = Student.objects.all().order_by('id')
-    # return render(request, 'select_stu.html', {'stus': stus})
+    stus = Student.objects.all().order_by('id')
+    return render(request, 'select_stu.html', {'stus': stus})
 ```
 9.查询id最大的一个学生数据
 ```
+def selectStu(request):
     # 查询id最大的一个学生数据
-    # stus = Student.objects.all().order_by('-id').first()
-    # return render(request, 'detail.html', {'stus': stus})
+    stus = Student.objects.all().order_by('-id').first()
+    return render(request, 'detail.html', {'stus': stus})
 ```
 10.查询id最小的一个学生数据
 ```
+def selectStu(request):
     # 查询id最小的一个学生数据
-    # stus = Student.objects.all().order_by('-id').last()
-    # return render(request, 'detail.html', {'stus': stus})
+    stus = Student.objects.all().order_by('-id').last()
+    return render(request, 'detail.html', {'stus': stus})
 ```
 11. 查询男生有多少个
 ```
+def selectStu(request):
     # 查询男生有多少个
-    # stus = Student.objects.filter(s_gender=True).count()
-    # return render(request, 'detail.html', {'stus': stus})
+    stus = Student.objects.filter(s_gender=True).count()
+    return render(request, 'detail.html', {'stus': stus})
 ```
 12.查询所有90后男生的信息
 ```
+def selectStu(request):
     # 查询所有90后男生的信息
     stus = Student.objects.filter(s_gender=True).\
         filter(s_birth__gte='1990-01-01').\
@@ -224,52 +230,60 @@ def selectStu(request):
 ```
 13.查询姓蔡学生的数据
 ```
+def selectStu(request):
     stus = Student.objects.filter(s_name__startswith='蔡')
     return render(request, 'select_stu.html', {'stus': stus})  
 ```
 14.查询姓名以“为”结尾学生的信息
 ```
+def selectStu(request):
     stus = Student.objects.filter(s_name__endswith='为')
     return render(request, 'select_stu.html', {'stus': stus})  
 ```
 15.查询姓名包含‘佩’学生的信息
 ```
+def selectStu(request):
     stus = Student.objects.filter(s_name__contains='佩')
     return render(request, 'select_stu.html', {'stus': stus})
 ```
 16.判断是否存在“李丹”的学生
 ----TypeError: 'bool' object is not iterable
 ```
+def selectStu(request):
     # 此处错误使用
     stus = Student.objects.filter(s_name='李丹').exists()
     return render(request, 'select_stu.html', {'stus': stus})
 ```
 17.获取指定的多个id的值
 ```
+def selectStu(request):
     ids = [1, 3, 4]
     stus = Student.objects.filter(id__in=ids)
     return render(request, 'select_stu.html', {'stus': stus})
 ```
 18.查询语文成绩大于数学成绩10分的学生
 ```
+def selectStu(request):
     stus = Student.objects.filter(s_math__gte=F('s_Chinese') + 10)
     return render(request, 'select_stu.html', {'stus': stus})  
 ```
 19.查询数学成绩大于等于语文成绩的学生
 ```
+def selectStu(request):
     stus = Student.objects.filter(s_math__gte=F('s_Chinese'))
     return render(request,'select_stu.html', {'stus': stus})
   
 ```
 20.查询学生姓名不叫李丹的，或者语文成绩大于80的学生  
-
 ```
+def selectStu(request):
     # ~Q代表非  |代表或
     stus = Student.objects.filter(~Q(s_name='李丹') | Q(s_Chinese__gt=80))
     return render(request, 'select_stu.html', {'stus': stus})   
 ```
 21.查询学生姓名不叫李丹的，且语文成绩大于80的学生
 ```
+def selectStu(request):
     # ~Q代表非  &代表且
     stus = Student.objects.filter(~Q(s_name='李丹') & Q(s_Chinese__gt=80))
     return render(request, 'select_stu.html', {'stus': stus})   
